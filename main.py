@@ -94,20 +94,22 @@ def mine_block(block_header,difficulty_target):
     nonce=0
 
     while True:
-        block_header['nonce']=nonce
-        concatenated_string=str(block_header['version'])+block_header['hashPrevBlock']+block_header['hashMerkleRoot']+str(block_header['time'])+block_header['difficulty_target']+str(block_header['nonce'])
+        # block_header['nonce']=nonce
+        concatenated_string=str(block_header['version'])+block_header['hashPrevBlock']+block_header['hashMerkleRoot']+str(block_header['time'])+block_header['difficulty_target']+str(nonce)
         block_hash=hashlib.sha256(concatenated_string.encode()).hexdigest()
         if int(block_hash,16)<target:
+            block_header['nonce']=nonce
             return nonce,block_hash
         nonce+=1
 
 
+
 mempool_directory = "mempool"
 valid_transactions, invalid_transactions = read_json(mempool_directory)
-nonce,block_hash=mine_block(block_header(),"0000ffff00000000000000000000000000000000000000000000000000000000")
+header=block_header()
+nonce,block_hash=mine_block(header,"0000ffff00000000000000000000000000000000000000000000000000000000")
 print(f'Nonce={nonce}')
 print(f'block_hash={block_hash}')
-header=block_header()
 
 with open("output.txt","w")as o:
 
