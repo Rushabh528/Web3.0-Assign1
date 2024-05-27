@@ -8,3 +8,5 @@ So, I have divided the solution into three parts.I will be explaining each of th
 
 
 Talking about functions and methods used, I have used basic methods from hashlib, os and io library.
+
+Also, I made the file into an executable command (./run.sh).
